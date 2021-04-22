@@ -10,21 +10,27 @@ interface ConnectionCreation {
 }
 
 class ConnectionService {
-  // private connectionRepository: Repository<Connection>;
+  private connectionRepository: Repository<Connection>;
 
-  // constructor () {
-  //   this.connectionRepository = getCustomRepository(ConnectionRepository);
-  // }
+  constructor () {
+    this.connectionRepository = getCustomRepository(ConnectionRepository);
+  }
   async create({ socket_id, user_id, admin_id, id }: ConnectionCreation) {
-    const connectionRepository = getCustomRepository(ConnectionRepository);
-    const connection = connectionRepository.create({
+    const connection = this.connectionRepository.create({
       socket_id,
       user_id,
       admin_id,
       id
     });
 
-    await connectionRepository.save(connection);
+    await this.connectionRepository.save(connection);
+
+    return connection;
+  }
+
+  async findByUserId(user_id: string) {
+    // const connectionRepository = getCustomRepository(ConnectionRepository);
+    const connection = await this.connectionRepository.findOne({ user_id });
 
     return connection;
   }
