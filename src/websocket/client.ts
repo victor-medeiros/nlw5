@@ -3,6 +3,10 @@ import { ConnectionService } from '../service/ConnectionService';
 import { MessageService } from '../service/MessageService';
 import { UserService } from '../service/UserService';
 
+interface Params {
+  email: string;
+  text: string;
+}
 
 io.on('connect', (socket) => {
   const connectionService = new ConnectionService();
@@ -11,7 +15,7 @@ io.on('connect', (socket) => {
 
   socket.on("client_first_access", async (params) => {
     const socket_id = socket.id;
-    const { text, email } = params;
+    const { text, email } = params as Params;
     let user_id = null;
 
     const userExists = await userService.findByEmail(email);
