@@ -8,8 +8,6 @@ document.querySelector("#start_chat").addEventListener("click", (event) => {
   chat_in_support.style.display = "block";
 
   const email = document.getElementById("email").value;
-  // const email = "victor@email.com";
-  // const text = "Oi preciso de ajuda";
   const text = document.getElementById("txt_help").value;
 
   socket.on("connect", () => {
