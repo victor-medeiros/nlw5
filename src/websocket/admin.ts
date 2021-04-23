@@ -29,7 +29,10 @@ io.on("connect", async (socket) => {
 
     const { socket_id } = await connectionService.findByUserId(user_id);
 
-    io.to(socket_id).emit("admin_sent_to_client", message);
+    io.to(socket_id).emit("admin_sent_to_client", {
+      text,
+      socket_id: socket.id
+    });
 
   });
 });
