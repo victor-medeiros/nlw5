@@ -26,7 +26,7 @@ class Connection {
   @Column()
   socket_id: string;
 
-  constructor () {
+  constructor() {
     if (!this.id) {
       this.id = uuid();
     }

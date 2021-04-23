@@ -9,26 +9,31 @@ interface MessageCreation {
 }
 
 class MessageService {
-  private messageRepository: Repository<Message>
+  // private messageRepository: Repository<Message>
 
-  constructor () {
-    this.messageRepository = getCustomRepository(MessageRepository);
-  }
+  // constructor () {
+  //   this.messageRepository = getCustomRepository(MessageRepository);
+  // }
 
   async create({ admin_id, user_id, text }: MessageCreation) {
-    const message = this.messageRepository.create({
+    const messageRepository = getCustomRepository(MessageRepository);
+    // const message = this.messageRepository.create({
+    const message = messageRepository.create({
       admin_id,
       user_id,
       text
     });
 
-    await this.messageRepository.save(message);
+    // await this.messageRepository.save(message);
+    await messageRepository.save(message);
     return message;
   }
 
   async listByUser(user_id: string) {
+    const messageRepository = getCustomRepository(MessageRepository);
 
-    const list = await this.messageRepository.find({
+    // const list = await this.messageRepository.find({
+    const list = await messageRepository.find({
       where: { user_id },
       relations: ["user"]
     });

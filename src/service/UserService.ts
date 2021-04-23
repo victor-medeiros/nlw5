@@ -7,27 +7,31 @@ interface UserCreation {
 }
 
 class UserService {
-  private userRepository: Repository<User>;
+  // private userRepository: Repository<User>;
 
-  constructor () {
-    this.userRepository = getCustomRepository(UserRepository);
-  }
+  // constructor () {
+  //   this.userRepository = getCustomRepository(UserRepository);
+  // }
 
   async create({ email }: UserCreation){
-    const userExists = await this.userRepository.findOne({ email });
+    // const userExists = await this.userRepository.findOne({ email });
+    const userRepository = getCustomRepository(UserRepository);
+    const userExists = await userRepository.findOne({ email });
 
     if (userExists) {
       return userExists;
     }
 
-    const user = this.userRepository.create({ email });
+    const user = userRepository.create({ email });
 
-    await this.userRepository.save(user);
+    await userRepository.save(user);
     return user;
   }
 
   async findByEmail(email: string) {
-    const user = this.userRepository.findOne({ email });
+    const userRepository = getCustomRepository(UserRepository);
+
+    const user = userRepository.findOne({ email });
 
     return user;
   }

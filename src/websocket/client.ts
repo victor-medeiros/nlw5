@@ -55,4 +55,22 @@ io.on('connect', (socket) => {
       socket.emit("client_list_all_messages", allMessages);
 
   });
+
+  socket.on("client_send_to_admin", async params => {
+    const { socket_admin_id, text } = params;
+
+    const socket_id = socket.id;
+
+    const { user_id } = await connectionService.findBySokcetId(socket_id);
+
+    const message = await messageService.create({
+      text,
+      user_id
+    });
+
+    io.to(socket_admin_id).emit("admin_receive_message", {
+      message,
+      socket_id
+    });
+  });
 });
