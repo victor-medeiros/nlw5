@@ -81,7 +81,7 @@ function sendMessage(id) {
 }
 
 socket.on("admin_receive_message", data => {
-  const connection = connectionUsers.find(connection => connection.socket_id === data.socket_id);
+  const connection = connectionUsers.find(connection => connection.socket_id = data.socket_id);
 
   const divMessages = document.getElementById(`allMessages${connection.user_id}`);
 
