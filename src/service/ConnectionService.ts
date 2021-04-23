@@ -52,6 +52,11 @@ class ConnectionService {
 
     return connection;
   }
+
+  async update(user_id: string, admin_id: string) {
+    const connectionRepository = getCustomRepository(ConnectionRepository);
+    await connectionRepository.update({ user_id }, { admin_id });
+  }
 }
 
 export { ConnectionService }

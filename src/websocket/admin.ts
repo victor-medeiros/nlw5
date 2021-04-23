@@ -18,6 +18,16 @@ io.on("connect", async (socket) => {
     callback(messages);
   });
 
+  socket.on("admin_user_on_support", async params => {
+    const { user_id } = params;
+
+    await connectionService.update(user_id, socket.id);
+
+    const connectionsWithoutAdmin = await connectionService.findAllWithoutAdmin();
+
+    io.emit("admin_list_all_users", connectionsWithoutAdmin);
+  });
+
   socket.on("admin_send_message", async params=> {
     const { user_id, text } = params;
 
