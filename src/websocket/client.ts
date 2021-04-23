@@ -50,9 +50,13 @@ io.on('connect', (socket) => {
       text
     })
 
-      const allMessages = await messageService.listByUser(user_id);
+    const allMessages = await messageService.listByUser(user_id);
 
-      socket.emit("client_list_all_messages", allMessages);
+    socket.emit("client_list_all_messages", allMessages);
+
+    const allUsers = await connectionService.findAllWithoutAdmin();
+
+    io.emit("admin_list_all_users", allUsers);
 
   });
 
