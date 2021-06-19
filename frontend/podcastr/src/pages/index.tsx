@@ -1,10 +1,10 @@
-import { Header } from "../components/Header";
-
 export default function Home(props) {
   console.log(props.episodes)
-  return <div>
-    <h1>Index</h1>
-  </div>
+  return (
+    <div>
+      <h1>Index</h1>
+    </div>
+  )
 }
 
 export async function getServerSideProps() {

@@ -1,5 +1,7 @@
 import styles from './styles.module.scss';
 
+import Image from 'next/'
+
 export function Player() {
   
   return (
